@@ -1,0 +1,53 @@
+-- 1.- 
+select city.city_id, city.city, customer.first_name, customer.last_name, customer.email, address.address
+FROM address
+JOIN customer on customer.address_id = address.address_id
+JOIN city on city.city_id = address.city_id 
+WHERE city.city_id = 312;
+-- 2.- 
+select film.film_id, film.title, film.description, film.release_year, film.rating, film.special_features, category.name
+FROM category
+JOIN film_category on category.category_id = film_category.category_id
+JOIN film on film.film_id = film_category.film_id
+WHERE category.name = "Comedy";
+-- 3.-
+select actor.actor_id, concat(actor.first_name," ", actor.last_name) as actor_name, film.film_id, film.title, film.description, film.release_year
+FROM actor
+JOIN film_actor on actor.actor_id = film_actor.actor_id
+JOIN film on film.film_id = film_actor.film_id
+WHERE actor.actor_id = 5;
+-- 4.- 
+select store.store_id, customer.first_name, customer.last_name, customer.email, address.address
+FROM customer
+JOIN store on store.address_id = customer.address_id
+JOIN address on address.address_id = customer.address_id
+WHERE store.store_id = 1;
+-- 5.- 
+Select film.title, film.description, film.release_year, film.rating, film.special_features
+FROM film 
+JOIN film_actor on film.film_id = film_actor.film_id
+JOIN actor on actor.actor_id = film_actor.actor_id
+WHERE actor.actor_id = 15 and film.rating = "G" and film.special_features LIKE "%Behind%";
+-- 6.- 
+select film.film_id, film.title, actor.actor_id, concat(actor.first_name, actor.last_name) as actor_name
+FROM film 
+join film_actor on film.film_id = film_actor.film_id
+join actor on actor.actor_id = film_actor.actor_id
+WHERE film.film_id = 369;
+-- 7.-
+select film.film_id, film.title, film.description, film.release_year, film.rating, film.special_features, category.name as genre, payment.amount as rental_rate
+from film
+join film_category on film.film_id = film_category.film_id
+join category on category.category_id = film_category.category_id
+join inventory on inventory.film_id = film.film_id
+join rental on rental.rental_id = inventory.rental_id
+join payment on payment.rental_id = rental.rental_id
+where category.name = 'Drama' and payment.amount = 2.99;
+-- 8.- 
+select actor.actor_id, concat(actor.first_name," ", actor.last_name) as actor_name, film.film_id, film.title, film.description, film.release_year, film.rating, film.special_features, category.name
+FROM film 
+join film_actor on film.film_id = film_actor.film_id
+join actor on actor.actor_id = film_actor.actor_id
+join film_category on film.film_id = film_category.film_id
+join category on category.category_id = film_category.category_id
+where actor.first_name = "SANDRA" and actor.last_name="KILMER" and category.name = "Action"
